@@ -2,6 +2,7 @@ package command
 
 import (
 	"encoding/json"
+	"flag"
 	"os"
 	"time"
 
@@ -19,7 +20,13 @@ type AddTaskRes struct {
 	Error   string        `json:"error,omitempty"`
 }
 
-func AddTaskCommand(task TaskReq) AddTaskRes {
+func AddTaskCommand(args []string) AddTaskRes {
+	addCmd := flag.NewFlagSet("add", flag.ExitOnError)
+	title := addCmd.String("title", "", "Title of the task (required)")
+	desc := addCmd.String("desc", "", "Desction of the task (required)")
+
+	addCmd.Parse(args)
+
 	data, err := os.ReadFile("./db/task.json")
 	if err != nil {
 		logger.Errorf("Error reading file: %v", err)
@@ -35,8 +42,8 @@ func AddTaskCommand(task TaskReq) AddTaskRes {
 
 	newTask := schemas.Task{
 		Id:          uint(len(taskList)),
-		Title:       task.Title,
-		Description: task.Description,
+		Title:       *title,
+		Description: *desc,
 		Status:      "To Do",
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
