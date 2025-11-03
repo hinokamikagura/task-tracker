@@ -5,7 +5,7 @@ Supports adding, updating, deleting, and listing tasks stored in a JSON file.
 
 ---
 
-projectURL[https://github.com/hinokamikagura/task-tracker.git]
+Project URL: https://github.com/hinokamikagura/task-tracker.git
 
 ---
 
