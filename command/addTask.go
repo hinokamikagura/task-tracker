@@ -4,7 +4,6 @@ import (
 	"flag"
 	"time"
 
-	"github.com/hinokamikagura/task-tracker/config"
 	"github.com/hinokamikagura/task-tracker/schemas"
 )
 
@@ -25,7 +24,7 @@ func AddTaskCommand(args []string) {
 	desc := addCmd.String("desc", "", "Desction of the task (required)")
 
 	addCmd.Parse(args)
-	taskList, err := ReadTasks(config.GetFilePath())
+	taskList, err := ReadTasks()
 	if err != nil {
 		logger.Errorf("Error occured while read file: %v", err)
 		return
@@ -41,7 +40,7 @@ func AddTaskCommand(args []string) {
 	}
 
 	taskList = append(taskList, newTask)
-	if err := WriteTasks(config.GetFilePath(), taskList); err != nil {
+	if err := WriteTasks(taskList); err != nil {
 		logger.Errorf("Error occured while write file: %v", err)
 		return
 	}

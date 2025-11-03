@@ -25,5 +25,7 @@ func main() {
 	switch cmd {
 	case "add":
 		command.AddTaskCommand(os.Args[2:])
+	case "delete":
+		command.DeleteTaskCommand(os.Args[2:])
 	}
 }
