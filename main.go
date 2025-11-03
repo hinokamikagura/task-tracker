@@ -27,5 +27,7 @@ func main() {
 		command.AddTaskCommand(os.Args[2:])
 	case "delete":
 		command.DeleteTaskCommand(os.Args[2:])
+	case "update":
+		command.UpdateTaskCommand(os.Args[2:])
 	}
 }
