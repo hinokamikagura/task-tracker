@@ -3,12 +3,13 @@ package config
 import "fmt"
 
 var (
-	logger *Logger
+	logger   *Logger
+	filePath string
 )
 
 func Init() error {
 	var err error
-
+	filePath = "./db/task.json"
 	err = InitializeDatabase()
 
 	if err != nil {
@@ -21,4 +22,8 @@ func Init() error {
 func GetLogger(p string) *Logger {
 	logger = NewLogger(p)
 	return logger
+}
+
+func GetFilePath() string {
+	return filePath
 }
