@@ -1,9 +1,12 @@
 package config
 
 import (
+	"encoding/json"
 	"io"
 	"log"
 	"os"
+
+	"github.com/hinokamikagura/task-tracker/schemas"
 )
 
 type Logger struct {
@@ -53,4 +56,19 @@ func (l *Logger) Warnf(format string, v ...interface{}) {
 }
 func (l *Logger) Errorf(format string, v ...interface{}) {
 	l.err.Printf(format, v...)
+}
+
+// Create Formatted Task Log
+func (l *Logger) TaskLog(task schemas.Task) {
+	out := schemas.TaskOutPut{
+		Id:          task.Id,
+		Title:       task.Title,
+		Description: task.Description,
+		Status:      task.Status,
+		CreatedAt:   task.CreatedAt.Format("2006-01-02T15:04:05"),
+		UpdatedAt:   task.UpdatedAt.Format("2006-01-02T15:04:05"),
+	}
+
+	data, _ := json.MarshalIndent(out, "", "	")
+	l.info.Printf(string(data))
 }

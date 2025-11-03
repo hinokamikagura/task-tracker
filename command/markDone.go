@@ -7,13 +7,11 @@ import (
 	"github.com/hinokamikagura/task-tracker/schemas"
 )
 
-func UpdateTaskCommand(args []string) {
-	updateCmd := flag.NewFlagSet("update", flag.ExitOnError)
-	id := updateCmd.Uint("taskId", 0, "Id of task you want to update")
-	title := updateCmd.String("title", "", "Title which you want to update")
-	desc := updateCmd.String("desc", "", "Description which  you want to update")
+func MarkDoneCommand(args []string) {
+	markDoneCmd := flag.NewFlagSet("update", flag.ExitOnError)
+	id := markDoneCmd.Uint("taskId", 0, "Id of task you want to update")
 
-	updateCmd.Parse(args)
+	markDoneCmd.Parse(args)
 
 	taskList, err := ReadTasks()
 	if err != nil {
@@ -23,12 +21,7 @@ func UpdateTaskCommand(args []string) {
 	var updatedTask schemas.Task
 	for i := 0; i < len(taskList); i++ {
 		if taskList[i].Id == *id {
-			if *title != "" {
-				taskList[i].Title = *title
-			}
-			if *desc != "" {
-				taskList[i].Description = *desc
-			}
+			taskList[i].Status = "Done"
 			taskList[i].UpdatedAt = time.Now()
 			updatedTask = taskList[i]
 			break
@@ -36,7 +29,7 @@ func UpdateTaskCommand(args []string) {
 	}
 
 	if updatedTask.Title == "" {
-		logger.Errorf("Not found task you want to update")
+		logger.Errorf("Not found task you want to update status")
 		return
 	}
 
@@ -45,6 +38,6 @@ func UpdateTaskCommand(args []string) {
 		return
 	}
 
-	logger.Infof("Task updated successfully:")
+	logger.Infof("Task marked done successfully:")
 	logger.TaskLog(updatedTask)
 }

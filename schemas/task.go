@@ -10,10 +10,19 @@ import "time"
 // }
 
 type Task struct {
-	Id          uint
-	Title       string
-	Description string
-	Status      string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	Id          uint      `json:"Id"`
+	Title       string    `json:"Title"`
+	Description string    `json:"Description"`
+	Status      string    `json:"Status"`
+	CreatedAt   time.Time `json:"-"`
+	UpdatedAt   time.Time `json:"-"`
+}
+
+type TaskOutPut struct {
+	Id          uint   `json:"Id"`
+	Title       string `json:"Title"`
+	Description string `json:"Description"`
+	Status      string `json:"Status"`
+	CreatedAt   string `json:"CreatedAt"`
+	UpdatedAt   string `json:"UpdatedAt"`
 }
