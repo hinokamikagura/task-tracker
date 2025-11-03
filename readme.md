@@ -5,7 +5,7 @@ Supports adding, updating, deleting, and listing tasks stored in a JSON file.
 
 ---
 
-Project URL: https://github.com/hinokamikagura/task-tracker.git
+Sample solition for the task-tracker[https://roadmap.sh/projects/task-tracker] challenge from roadmap.sh[https://roadmap.sh/].
 
 ---
 
