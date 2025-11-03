@@ -4,9 +4,8 @@ import "os"
 
 func InitializeDatabase() error {
 	logger := GetLogger("json")
-	jsonPath := "./db/task.json"
 
-	_, err := os.Stat(jsonPath)
+	_, err := os.Stat(filePath)
 	if os.IsNotExist(err) {
 		logger.Info("Json file doesn't exit. Creating")
 		err = os.MkdirAll("./db", os.ModePerm)
@@ -14,7 +13,7 @@ func InitializeDatabase() error {
 			return err
 		}
 
-		if err := os.WriteFile(jsonPath, []byte("[]"), os.ModePerm); err != nil {
+		if err := os.WriteFile(filePath, []byte("[]"), os.ModePerm); err != nil {
 			return err
 		}
 	}

@@ -1,11 +1,10 @@
 package command
 
 import (
-	"encoding/json"
 	"flag"
-	"os"
 	"time"
 
+	"github.com/hinokamikagura/task-tracker/config"
 	"github.com/hinokamikagura/task-tracker/schemas"
 )
 
@@ -20,24 +19,16 @@ type AddTaskRes struct {
 	Error   string        `json:"error,omitempty"`
 }
 
-func AddTaskCommand(args []string) AddTaskRes {
+func AddTaskCommand(args []string) {
 	addCmd := flag.NewFlagSet("add", flag.ExitOnError)
 	title := addCmd.String("title", "", "Title of the task (required)")
 	desc := addCmd.String("desc", "", "Desction of the task (required)")
 
 	addCmd.Parse(args)
-
-	data, err := os.ReadFile("./db/task.json")
+	taskList, err := ReadTasks(config.GetFilePath())
 	if err != nil {
-		logger.Errorf("Error reading file: %v", err)
-		return AddTaskRes{Success: false, Error: err.Error()}
-	}
-
-	var taskList []schemas.Task
-
-	if err := json.Unmarshal(data, &taskList); err != nil {
-		logger.Errorf("Error parse json file: %v", err)
-		return AddTaskRes{Success: false, Error: err.Error()}
+		logger.Errorf("Error occured while read file: %v", err)
+		return
 	}
 
 	newTask := schemas.Task{
@@ -50,17 +41,10 @@ func AddTaskCommand(args []string) AddTaskRes {
 	}
 
 	taskList = append(taskList, newTask)
-	newData, err := json.MarshalIndent(taskList, "", "	")
-	if err != nil {
-		logger.Errorf("Error encoding JSON: %v", err)
-		return AddTaskRes{Success: false, Error: err.Error()}
+	if err := WriteTasks(config.GetFilePath(), taskList); err != nil {
+		logger.Errorf("Error occured while write file: %v", err)
+		return
 	}
 
-	if err := os.WriteFile("./db/task.json", newData, 0644); err != nil {
-		logger.Errorf("Error writting to JSON file: %v", err)
-		return AddTaskRes{Success: false, Error: err.Error()}
-	}
-
-	logger.Infof("Task added successfully")
-	return AddTaskRes{Success: true, Task: &newTask}
+	logger.Infof("Successfully Added Task: %v", newTask)
 }

@@ -24,8 +24,6 @@ func main() {
 	cmd := os.Args[1]
 	switch cmd {
 	case "add":
-		if res := command.AddTaskCommand(os.Args[2:]); res.Success != false {
-			logger.Infof("Added Task: %v", res.Task)
-		}
+		command.AddTaskCommand(os.Args[2:])
 	}
 }
