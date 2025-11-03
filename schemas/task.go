@@ -10,7 +10,7 @@ import "time"
 // }
 
 type Task struct {
-	Id          string
+	Id          uint
 	Title       string
 	Description string
 	Status      string

@@ -3,7 +3,7 @@ package config
 import "os"
 
 func InitializeDatabase() error {
-	logger := NewLogger("json")
+	logger := GetLogger("json")
 	jsonPath := "./db/task.json"
 
 	_, err := os.Stat(jsonPath)
@@ -13,11 +13,10 @@ func InitializeDatabase() error {
 		if err != nil {
 			return err
 		}
-		file, err := os.Create(jsonPath)
-		if err != nil {
+
+		if err := os.WriteFile(jsonPath, []byte("[]"), os.ModePerm); err != nil {
 			return err
 		}
-		file.Close()
 	}
 	return nil
 }
