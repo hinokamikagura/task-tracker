@@ -60,7 +60,23 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 
 // Create Formatted Task Log
 func (l *Logger) TaskLog(task schemas.Task) {
-	out := schemas.TaskOutPut{
+	out := getTaskOutputForm(task)
+	data, _ := json.MarshalIndent(out, "", "	")
+	l.info.Println(string(data))
+}
+
+// Create Formatted Task List Log
+func (l *Logger) TaskListLog(tasks []schemas.Task) {
+	var taskListOut []schemas.TaskOutPut
+	for _, task := range tasks {
+		taskListOut = append(taskListOut, getTaskOutputForm(task))
+	}
+	data, _ := json.MarshalIndent(taskListOut, "", "	")
+	l.info.Println(string(data))
+}
+
+func getTaskOutputForm(task schemas.Task) schemas.TaskOutPut {
+	return schemas.TaskOutPut{
 		Id:          task.Id,
 		Title:       task.Title,
 		Description: task.Description,
@@ -68,7 +84,4 @@ func (l *Logger) TaskLog(task schemas.Task) {
 		CreatedAt:   task.CreatedAt.Format("2006-01-02T15:04:05"),
 		UpdatedAt:   task.UpdatedAt.Format("2006-01-02T15:04:05"),
 	}
-
-	data, _ := json.MarshalIndent(out, "", "	")
-	l.info.Printf(string(data))
 }
