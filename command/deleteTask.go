@@ -41,5 +41,6 @@ func DeleteTaskCommand(args []string) {
 		return
 	}
 
-	logger.Infof("Deleted task: %v", deleteTask)
+	logger.Infof("Task deleted successfully:")
+	logger.TaskLog(deleteTask)
 }

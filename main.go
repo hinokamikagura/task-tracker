@@ -29,5 +29,9 @@ func main() {
 		command.DeleteTaskCommand(os.Args[2:])
 	case "update":
 		command.UpdateTaskCommand(os.Args[2:])
+	case "mark-in-progress":
+		command.MarkProgressCommand(os.Args[2:])
+	case "mark-done":
+		command.MarkDoneCommand(os.Args[2:])
 	}
 }

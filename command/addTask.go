@@ -44,6 +44,6 @@ func AddTaskCommand(args []string) {
 		logger.Errorf("Error occured while write file: %v", err)
 		return
 	}
-
-	logger.Infof("Successfully Added Task: %v", newTask)
+	logger.Infof("Successfully Added Task :")
+	logger.TaskLog(newTask)
 }
