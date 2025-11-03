@@ -14,8 +14,8 @@ type Task struct {
 	Title       string    `json:"Title"`
 	Description string    `json:"Description"`
 	Status      string    `json:"Status"`
-	CreatedAt   time.Time `json:"-"`
-	UpdatedAt   time.Time `json:"-"`
+	CreatedAt   time.Time `json:"CreatedAt"`
+	UpdatedAt   time.Time `json:"UpdatedAt"`
 }
 
 type TaskOutPut struct {

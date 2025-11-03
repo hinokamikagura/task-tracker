@@ -20,8 +20,9 @@ func MarkProgressCommand(args []string) {
 	}
 	var updatedTask schemas.Task
 	for i := 0; i < len(taskList); i++ {
+		logger.Infof("%d, %d", taskList[i].Id, *id)
 		if taskList[i].Id == *id {
-			taskList[i].Status = "Progress"
+			taskList[i].Status = "in-progress"
 			taskList[i].UpdatedAt = time.Now()
 			updatedTask = taskList[i]
 			break

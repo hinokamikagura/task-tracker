@@ -21,7 +21,7 @@ func MarkDoneCommand(args []string) {
 	var updatedTask schemas.Task
 	for i := 0; i < len(taskList); i++ {
 		if taskList[i].Id == *id {
-			taskList[i].Status = "Done"
+			taskList[i].Status = "done"
 			taskList[i].UpdatedAt = time.Now()
 			updatedTask = taskList[i]
 			break

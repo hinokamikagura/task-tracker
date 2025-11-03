@@ -34,7 +34,7 @@ func AddTaskCommand(args []string) {
 		Id:          uint(len(taskList)),
 		Title:       *title,
 		Description: *desc,
-		Status:      "To Do",
+		Status:      "todo",
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
 	}

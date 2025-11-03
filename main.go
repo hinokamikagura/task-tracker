@@ -33,5 +33,11 @@ func main() {
 		command.MarkProgressCommand(os.Args[2:])
 	case "mark-done":
 		command.MarkDoneCommand(os.Args[2:])
+	case "list":
+		if len(os.Args) < 3 {
+			command.ListTaskCommand("all")
+		} else {
+			command.ListTaskCommand(os.Args[2])
+		}
 	}
 }
